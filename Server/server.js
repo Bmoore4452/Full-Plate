@@ -1,19 +1,25 @@
 const express = require("express");
 const { ApolloServer, gql } = require("apollo-server-express");
 const mongoose = require("mongoose");
+
 const typeDefs = gql`
   type Query {
     hello: String
   }
 `;
+
 // const resolvers = {
 //   Query: {
 //     hello: () => 'Hello world!'
 //   }
 // };
+
 const server = new ApolloServer({ typeDefs, resolvers });
+
 const app = express();
+
 server.applyMiddleware({ app });
+
 mongoose
   .connect("mongodb://localhost/test", {
     useNewUrlParser: true,
@@ -28,3 +34,12 @@ mongoose
   .catch((error) => {
     console.log(error);
   });
+
+app.use((req, res, next) => {
+  console.log(`Request: ${req.method} ${req.url}`);
+  next();
+});
+
+app.get("/", (req, res) => {
+  res.send("Welcome to my GraphQL API!");
+});
