@@ -34,19 +34,32 @@ const LoginForm = () => {
           Something went wrong with your login credentials!
         </Alert>
         <TextInput
-          label='Email' id='email' name='email' type='email' value={userFormData.email} onChange={handleInputChange}
+          label='Email' 
+          id='email' 
+          name='email' 
+          type='email' 
+          value={userFormData.email} 
+          onChange={handleInputChange}
           required
         >
           <span className='red-text'>Email is required!</span>
         </TextInput>
         <TextInput
-          label='Password' id='password' name='password' type='password' value={userFormData.password} onChange={handleInputChange}
+          label='Password' 
+          id='password' 
+          name='password' 
+          type='password' 
+          value={userFormData.password} 
+          onChange={handleInputChange}
           required
         >
           <span className='red-text'>Password is required!</span>
         </TextInput>
         <Button
-          disabled={!(userFormData.email && userFormData.password)} type='submit' waves='light' className='green'>
+          disabled={!(userFormData.email && userFormData.password)} 
+          type='submit' 
+          waves='light' 
+          className='green'>
           Submit
         </Button>
       </form>
