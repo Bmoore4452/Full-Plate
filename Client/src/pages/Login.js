@@ -1,5 +1,4 @@
 import { TextInput, Button, Alert } from 'materialize-css';
-import React, { useState } from 'react';
 
 const LoginForm = () => {
   const [userFormData, setUserFormData] = useState({ email: '', password: '' });
