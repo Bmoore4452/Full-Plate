@@ -7,7 +7,7 @@ export const useUserContext = () => useContext(UserContext);
 export const UserProvider = ({ children }) => {
     const [users, setUsers] = useState([]);
 
-    reutrn (
+    return (
         <UserContext.Provider value={{ users }}>
             {children}
         </UserContext.Provider>
