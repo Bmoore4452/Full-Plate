@@ -18,7 +18,7 @@ const typeDefs = gql`
   }
 
   type Recipe {
-    user: ID
+    _id: ID
     title: String!
     recipeId: String!
     description: String
@@ -28,7 +28,7 @@ const typeDefs = gql`
 
   type Query {
     recipes: [Recipe]!
-    recipe(recipeId: String): Recipe
+    recipe(recipeId: ID!): Recipe
     users: [User]
   }
 

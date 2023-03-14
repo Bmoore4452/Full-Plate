@@ -5,6 +5,7 @@ import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Home from './pages/Home';
+import SingleRecipe from './pages/SingleRecipe';
 
 const client = new ApolloClient({
   uri: '/graphql',
@@ -21,6 +22,10 @@ function App() {
             <Route 
               path='/'
               element={<Home />}
+            />
+            <Route 
+              path='/recipe/:recipeId'
+              element={<SingleRecipe />}
             />
           </Routes>
         </div>
