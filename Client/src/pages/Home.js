@@ -16,7 +16,7 @@ const Home = () => {
         <div>
           {recipeList.map((recipe) => {
             return (
-              <div key={recipe.title} className="row">
+              <div key={recipe._id} className="row">
                 <div className="col s12 m7">
                   <div className="card">
                     <div className="card-image">
@@ -27,7 +27,7 @@ const Home = () => {
                       <p>{recipe.description}</p>
                     </div>
                     <div className="card-action">
-                      <Link>View Full Recipe</Link>
+                      <Link to={`recipe/${recipe._id}`}>View Full Recipe</Link>
                     </div>
                   </div>
                 </div>
