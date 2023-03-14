@@ -30,6 +30,7 @@ const typeDefs = gql`
     recipes: [Recipe]!
     recipe(recipeId: String): Recipe
     users: [User]
+    user(username: String): User
   }
 
   type Mutation {
