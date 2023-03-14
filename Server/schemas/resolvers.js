@@ -1,5 +1,6 @@
 const { User, Recipe } = require('../models');
 const { AuthenticationError } = require('apollo-server-express');
+const { signToken } = require("../utils/auth")
 
 const resolvers = {
   Query: {
@@ -16,9 +17,10 @@ const resolvers = {
 
   Mutation: {
     addUser: async (parent, args) => {
-      const user = await User.create(args);
+      const user = await User.create(...args);
+      const token = signToken(user);
 
-      return user;
+      return { token, user };
     },
     saveRecipe: async (parent, { input }, context) => {
       if (context.user) {
@@ -48,8 +50,8 @@ const resolvers = {
         throw new AuthenticationError('Incorrect Password');
       }
 
-      //   const token = signToken(user);
-      return user;
+      const token = signToken(user);
+      return { token, user };
     },
   },
 };
