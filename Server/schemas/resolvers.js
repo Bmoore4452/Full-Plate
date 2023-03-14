@@ -1,4 +1,5 @@
 const { User, Recipe } = require('../models');
+const { AuthenticationError } = require('apollo-server-express');
 
 const resolvers = {
   Query: {
@@ -32,6 +33,23 @@ const resolvers = {
           }
         );
       }
+    },
+
+    login: async (parent, { email, password }) => {
+      const user = await User.findOne({ email });
+
+      if (!user) {
+        throw new AuthenticationError('No User');
+      }
+
+      const correctPW = await user.isCorrectPassword(password);
+
+      if (!correctPW) {
+        throw new AuthenticationError('Incorrect Password');
+      }
+
+      //   const token = signToken(user);
+      return user;
     },
   },
 };
