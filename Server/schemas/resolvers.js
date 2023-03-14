@@ -17,9 +17,9 @@ const resolvers = {
 
   Mutation: {
     addUser: async (parent, args) => {
-      const user = await User.create(...args);
+      const user = await User.create(args);
       const token = signToken(user);
-
+        console.log(args);
       return { token, user };
     },
     saveRecipe: async (parent, { input }, context) => {
@@ -45,7 +45,7 @@ const resolvers = {
       }
 
       const correctPW = await user.isCorrectPassword(password);
-
+      console.log(correctPW);
       if (!correctPW) {
         throw new AuthenticationError('Incorrect Password');
       }
