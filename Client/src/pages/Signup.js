@@ -1,78 +1,72 @@
-import { TextInput, Button, Alert } from 'materialize-css';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { useMutation } from "@apollo/client";
+import { ADD_USER } from '../utils/mutations';
+import auth from '../utils/auth';
 
-const SignupForm = () => {
+const SignUp = () => {
   const [userFormData, setUserFormData] = useState({ username: '', email: '', password: '' });
+  const [addUser, { error, data }] = useMutation(ADD_USER);
 
-  const handleInputChange = (event) => {
+  const handleChange = (event) => {
     const { name, value } = event.target;
     setUserFormData({ ...userFormData, [name]: value });
   };
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    console.log(userFormData);
-    setUserFormData({
-      name: '',
-      email: '',
-      password: '',
-    });
+    
+    try {
+      const { data } = await addUser({
+        variables: { ...userFormData }
+      });
+
+      auth.login(data.addUser.token);
+    }
+    catch (e) {
+      console.error(e);
+    }
   };
 
   return (
-    <>
-      <form onSubmit={handleFormSubmit}>
+    <div className="row">
+      <h4>Sign Up</h4>
+      {data ? (
+        <p>
+          Thank You for signing up! head {' '}
+          <Link to={"/"}>back to homepage</Link>
+        </p>
+      ): (
+        <form onSubmit={handleFormSubmit} className="col s12">
+          <div className="row">
+            <div className="input-field col s12">
+              <input value={userFormData.username} onChange={handleChange} name="username" type="text" className="validate"/>
+              <label for="username">Username</label>
+            </div>
+          </div>
+          <div className="row">
+            <div className="input-field col s12">
+              <input value={userFormData.email} onChange={handleChange} name="email" type="email" className="validate"/>
+              <label for="email">Email</label>
+            </div>
+          </div>
+          <div className="row">
+            <div className="input-field col s12">
+              <input value={userFormData.password} onChange={handleChange} name="password" type="password" className="validate"/>
+              <label for="password">Password</label>
+            </div>
+          </div>
+          <button className="btn waves-effect waves-light" type="submit" name="action">Submit</button>
+        </form>
+      )}
 
-        <TextInput >
-          <Form.Label htmlFor='username'>Name</Form.Label>
-          <Form.Control
-            type='text' 
-            placeholder='Your name' 
-            name='name' 
-            onChange={handleInputChange} 
-            value={userFormData.username}
-            required
-          />
-          <span type='invalid'>Name is required!</span>
-        </TextInput>
-
-        <TextInput >
-          <Form.Label htmlFor='email'>Email</Form.Label>
-          <Form.Control
-            type='email' 
-            placeholder='Your email address' 
-            name='email' 
-            onChange={handleInputChange} 
-            value={userFormData.email}
-            required
-          />
-          <span type='invalid'>Email is required!</span>
-        </TextInput>
-
-        <TextInput>
-          <Form.Label htmlFor='password'>Password</Form.Label>
-          <Form.Control
-            type='password' 
-            placeholder='Your password' 
-            name='password' 
-            onChange={handleInputChange} 
-            value={userFormData.password}
-            required
-          />
-          <span type='invalid'>Password is required!</span>
-        </TextInput>
-
-        <Button
-          node='button'
-          type='submit'
-          waves='light'
-          className='blue'
-        >
-          Sign Up
-          <Icon right>send</Icon>
-        </Button>  
-      </form>
-    </>
+      {error && (
+        <div>
+        {error.message}
+        </div>
+      )}
+    </div>
   );
 };
 
-export default SignupForm;
+export default SignUp;
