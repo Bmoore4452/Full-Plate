@@ -1,70 +1,66 @@
-import { TextInput, Button, Alert } from 'materialize-css';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { useMutation } from "@apollo/client";
+import { LOGIN_USER } from '../utils/mutations';
+import auth from '../utils/auth';
 
-const LoginForm = () => {
-  const [userFormData, setUserFormData] = useState({ email: '', password: '' });
-  const [validated] = useState(false);
-  const [showAlert, setShowAlert] = useState(false);
+const Login = () => {
+  const [userFormData, setUserFormData] = useState({ username: '', email: ''});
+  const [login, { error, data }] = useMutation(LOGIN_USER);
 
-  const handleInputChange = (event) => {
+  const handleChange = (event) => {
     const { name, value } = event.target;
     setUserFormData({ ...userFormData, [name]: value });
   };
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
+    
+    try {
+      const { data } = await login({
+        variables: { ...userFormData }
+      });
 
-    const form = event.currentTarget;
-    if (form.checkValidity() === false) {
-      event.preventDefault();
-      event.stopPropagation();
+      auth.login(data.addUser.token);
     }
-
-// Perform login logic here if using a backend
-    setUserFormData({
-      username: '',
-      email: '',
-      password: '',
-    });
+    catch (e) {
+      console.error(e);
+    }
   };
 
   return (
-    <>
-      <form noValidate validated={validated} onSubmit={handleFormSubmit}>
-        <Alert dismissible onClose={() => setShowAlert(false)} open={showAlert} color='red'>
-          Something went wrong with your login credentials!
-        </Alert>
-        <TextInput
-          label='Email' 
-          id='email' 
-          name='email' 
-          type='email' 
-          value={userFormData.email} 
-          onChange={handleInputChange}
-          required
-        >
-          <span className='red-text'>Email is required!</span>
-        </TextInput>
-        <TextInput
-          label='Password' 
-          id='password' 
-          name='password' 
-          type='password' 
-          value={userFormData.password} 
-          onChange={handleInputChange}
-          required
-        >
-          <span className='red-text'>Password is required!</span>
-        </TextInput>
-        <Button
-          disabled={!(userFormData.email && userFormData.password)} 
-          type='submit' 
-          waves='light' 
-          className='green'>
-          Submit
-        </Button>
-      </form>
-    </>
+    <div className="row">
+      <h4>Login</h4>
+      {data ? (
+        <p>
+          You are signed in head {' '}
+          <Link to={"/"}>back to homepage</Link>
+        </p>
+      ): (
+        <form onSubmit={handleFormSubmit} className="col s12">
+          <div className="row">
+            <div className="input-field col s12">
+              <input value={userFormData.email} onChange={handleChange} name="email" type="email" className="validate"/>
+              <label for="email">Email</label>
+            </div>
+          </div>
+          <div className="row">
+            <div className="input-field col s12">
+              <input value={userFormData.password} onChange={handleChange} name="password" type="password" className="validate"/>
+              <label for="password">Password</label>
+            </div>
+          </div>
+          <button className="btn waves-effect waves-light" type="submit" name="action">Submit</button>
+        </form>
+      )}
+
+      {error && (
+        <div>
+        {error.message}
+        </div>
+      )}
+    </div>
   );
 };
 
-export default LoginForm;
+export default Login;
