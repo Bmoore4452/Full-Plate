@@ -21,7 +21,7 @@ const Login = () => {
         variables: { ...userFormData }
       });
 
-      auth.login(data.addUser.token);
+      auth.login(data.login.token);
     }
     catch (e) {
       console.error(e);
