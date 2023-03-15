@@ -40,20 +40,17 @@ const SignUp = () => {
         <form onSubmit={handleFormSubmit} className="col s12">
           <div className="row">
             <div className="input-field col s12">
-              <input value={userFormData.username} onChange={handleChange} name="username" type="text" className="validate"/>
-              <label for="username">Username</label>
+              <input value={userFormData.username} onChange={handleChange} name="username" type="text" className="validate" placeholder="Username"/>
             </div>
           </div>
           <div className="row">
             <div className="input-field col s12">
-              <input value={userFormData.email} onChange={handleChange} name="email" type="email" className="validate"/>
-              <label for="email">Email</label>
+              <input value={userFormData.email} onChange={handleChange} name="email" type="email" className="validate" placeholder="Email"/>
             </div>
           </div>
           <div className="row">
             <div className="input-field col s12">
-              <input value={userFormData.password} onChange={handleChange} name="password" type="password" className="validate"/>
-              <label for="password">Password</label>
+              <input value={userFormData.password} onChange={handleChange} name="password" type="password" className="validate" placeholder="Password"/>
             </div>
           </div>
           <button className="btn waves-effect waves-light" type="submit" name="action">Submit</button>
