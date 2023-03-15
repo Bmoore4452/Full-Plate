@@ -1,28 +1,28 @@
 [
     {
         "title": "Tacos",
-        "recipeId": "1",
+        "ingredients": ["ground beef", "tortillas"],
         "description": "quick and easy delicious meal",
         "steps": ["cook ground beef", "fry tortillas", "fill taco sheels with cooked beef and any toppings"],
         "image": "https://houseofyumm.com/wp-content/uploads/2021/06/Taco-Meat-8-680x520.jpg"
     },
     {
         "title": "Pancakes",
-        "recipeId": "2",
+        "ingredients": ["pancake mix", "griddle"],
         "description": "old-fashioned pancakes",
         "steps": ["stir ingredients", "scoop batter onto hot griddle", "cook for two to three minute on both sides"],
         "image": "https://www.allrecipes.com/thmb/kvvETNZfOtAptH69gUsK6FaKRKA=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/21014-Good-old-Fashioned-Pancakes-mfs_001-1fa26bcdedc345f182537d95b6cf92d8.jpg"
     },
     {
         "title": "Spaghetti",
-        "recipeId": "3",
+        "ingredients": ["spaghetti", "pasta sauce"],
         "description": "easy spaghetti",
         "steps": ["cook spaghetti", "make sauce"],
         "image": "https://lilluna.com/wp-content/uploads/2018/05/easy-spaghetti-resize-2.jpg"
     },
     {
         "title": "Baked Potato",
-        "recipeId": "4",
+        "ingredients": ["potato", "sour cream"],
         "description": "crispy skin baked potato",
         "steps": ["preheat oven", "season potato", "bake potato", "add toppings"],
         "image": "https://cdn.loveandlemons.com/wp-content/uploads/2020/01/baked-potato.jpg"

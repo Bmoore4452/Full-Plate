@@ -5,7 +5,7 @@ import { ADD_RECIPE } from '../utils/mutations';
 import auth from '../utils/auth';
 
 const AddRecipe = () => {
-  const [userFormData, setUserFormData] = useState({ title: '', recipeId: '',ingredients: '', description: '', steps: '', image: ''});
+  const [userFormData, setUserFormData] = useState({ title: '',ingredients: '', description: '', steps: '', image: ''});
   const [addRecipe, { error, data }] = useMutation(ADD_RECIPE);
   const { userId } = useParams();
 
@@ -22,7 +22,7 @@ const AddRecipe = () => {
         variables: {
           user: userId,
           title: userFormData.title,
-          recipeId: userFormData.recipeId,
+          ingredients: userFormData.ingredients.split(','),
           description: userFormData.description,
           steps: userFormData.steps.split(','),
           image: userFormData.image
@@ -58,7 +58,8 @@ const AddRecipe = () => {
               </div>
               <div className="row">
                 <div className="input-field col s12">
-                  <input value={userFormData.recipeId} onChange={handleChange} name="recipeId" className="validate" placeholder='Ingredients'/>
+                  <input value={userFormData.ingredients} onChange={handleChange} name="ingredients" className="validate" placeholder='Ingredients'/>
+                  <span class="helper-text" data-error="wrong" data-success="right">Separate with commas</span>
                 </div>
               </div>
               <div className="row">

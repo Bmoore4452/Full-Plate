@@ -21,6 +21,13 @@ const SingleRecipe = () => {
                     <img src={recipe.image} alt="food"/>
                     <p>{recipe.description}</p>
                     <ul>
+                        {recipe.ingredients.map((ingredient) => {
+                            return (
+                                <li>{ingredient}</li>
+                            );
+                        })}
+                    </ul>
+                    <ul>
                         {recipe.steps.map((step) => {
                             return (
                                 <li>{step}</li>
