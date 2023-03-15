@@ -13,6 +13,7 @@ export const QUERY_RECIPES = gql`
             image
             steps
             title
+            ingredients
         }
     }
 `;
@@ -25,6 +26,7 @@ export const QUERY_SINGLE_RECIPE = gql`
             image
             steps
             title
+            ingredients
         }
     }
 `;
