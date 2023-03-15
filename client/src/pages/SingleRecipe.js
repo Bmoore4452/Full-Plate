@@ -19,21 +19,24 @@ const SingleRecipe = () => {
                 <div>
                     <h2>{recipe.title}</h2>
                     <img src={recipe.image} alt="food"/>
+                    <h4>Description</h4>
                     <p>{recipe.description}</p>
-                    <ul>
+                    <h4>Ingredients</h4>
+                    <ol>
                         {recipe.ingredients.map((ingredient) => {
                             return (
                                 <li>{ingredient}</li>
                             );
                         })}
-                    </ul>
-                    <ul>
+                    </ol>
+                    <h4>Steps</h4>
+                    <ol>
                         {recipe.steps.map((step) => {
                             return (
                                 <li>{step}</li>
                             );
                         })}
-                    </ul>
+                    </ol>
                 </div>
             )}
         </div>
