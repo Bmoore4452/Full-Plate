@@ -19,7 +19,7 @@ const resolvers = {
     addUser: async (parent, args) => {
       const user = await User.create(args);
       const token = signToken(user);
-        console.log(args);
+        // console.log(args);
       return { token, user };
     },
     saveRecipe: async (parent, { input }, context) => {
@@ -53,6 +53,27 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     },
+
+    addRecipe: async (parent, {user ,title, recipeId, description, image, steps }, context) => {
+      if (context.body.variables.user) {
+        const recipe = await Recipe.create({
+          user,
+          title,
+          recipeId,
+          description,
+          image,
+          steps
+        });
+
+        await User.findOneAndUpdate(
+          { _id: user },
+          { $push: { recipes: recipe._id } }
+        );
+
+        return recipe;
+      }
+      throw new AuthenticationError("You need to be logged in");
+    }
   },
 };
 

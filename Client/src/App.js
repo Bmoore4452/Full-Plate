@@ -8,6 +8,7 @@ import Home from './pages/Home';
 import SingleRecipe from './pages/SingleRecipe';
 import SignUp from './pages/Signup';
 import Login from './pages/Login';
+import AddRecipe from './pages/AddRecipe';
 
 const client = new ApolloClient({
   uri: '/graphql',
@@ -28,6 +29,10 @@ function App() {
             <Route 
               path='/recipe/:recipeId'
               element={<SingleRecipe />}
+            />
+            <Route 
+              path='/user/:userId'
+              element={<AddRecipe />}
             />
             <Route 
               path='/signup'
